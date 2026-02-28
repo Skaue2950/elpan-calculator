@@ -19,8 +19,8 @@
 html,body{height:100%;font-family:'Cormorant Garamond',Georgia,serif;background:var(--cream);color:var(--char);overflow-x:hidden}
 
 /* SCREENS */
-.screen{display:none;min-height:100vh;flex-direction:column}
-.screen.active{display:flex}
+.screen{display:none;flex-direction:column}
+.screen.active{display:flex;flex-direction:column;min-height:100vh;min-height:-webkit-fill-available}
 
 /* HEADER */
 header{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;border-bottom:1px solid var(--bor);background:var(--warm);position:sticky;top:0;z-index:200}
@@ -65,70 +65,164 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 .c-name{font-size:24px;font-weight:400;margin-bottom:5px;color:var(--char)}
 .c-desc{font-size:14px;font-weight:300;color:var(--mid);line-height:1.4}
 
-/* SKETCH SCREEN */
-#s1{flex:1}
-.sketch-wrap{display:grid;grid-template-columns:320px 1fr;flex:1;min-height:0}
-/* ── MOBILE & TABLET — komplet responsiv omskrivning ───────────────────── */
+/* ── SKETCH SCREEN — DESKTOP ──────────────────────────────────────────── */
+#s1{display:none;flex-direction:column;min-height:100vh}
+#s1.active{display:flex}
+.sketch-wrap{display:grid;grid-template-columns:320px 1fr;flex:1;min-height:0;overflow:hidden}
+
+/* ── DETAIL SCREEN — DESKTOP ─────────────────────────────────────────── */
+#s2{display:none;flex-direction:column;min-height:100vh}
+#s2.active{display:flex}
+.det-wrap{display:grid;grid-template-columns:1fr 360px;flex:1;overflow:hidden}
+.det-main{padding:40px 44px;overflow-y:auto}
+.det-aside{background:var(--warm);border-left:1px solid var(--bor);padding:28px 24px;overflow-y:auto}
+
+/* ── SIDEBAR TABS ─────────────────────────────────────────────────────── */
+.sidebar{background:var(--warm);border-right:1px solid var(--bor);display:flex;flex-direction:column;overflow:hidden;max-height:calc(100vh - 65px)}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MOBIL & TABLET — iOS-sikker komplet omskrivning
+   Strategi: block-layout hele vejen, intet grid på mobil
+   ═══════════════════════════════════════════════════════════════════════ */
 @media(max-width:900px){
-  header{padding:12px 16px}
+  /* ── Grundlæggende: alle screens er block, scroll naturligt ── */
+  html,body{height:auto;min-height:100%}
+  .screen,.screen.active{
+    display:block !important;
+    min-height:100vh;
+    min-height:-webkit-fill-available;
+  }
+
+  /* ── Header ── */
+  header{padding:12px 16px;position:sticky;top:0;z-index:200}
   .step-label{display:none}
-  .w-content{padding:32px 20px}
-  .prod-choice{grid-template-columns:1fr;gap:10px}
-  .sketch-wrap{grid-template-columns:1fr;grid-template-rows:auto 1fr;overflow-y:auto;max-height:none}
-  .sidebar{max-height:none;border-right:none;border-bottom:2px solid var(--bor);overflow:visible}
-  .sb-panels{overflow:visible}
-  .sb-panel{padding:14px 14px 20px}
-  .canvas-area{padding:12px 8px}
-  #roomCanvas{max-width:100%;height:auto;touch-action:none}
-  .canvas-toolbar{flex-wrap:wrap;gap:6px}
-  .canvas-legend{column-gap:10px;font-size:9px}
-  .det-wrap{grid-template-columns:1fr}
-  .det-main{padding:24px 18px;max-height:none;overflow-y:visible}
-  .det-aside{border-left:none;border-top:2px solid var(--bor);max-height:none;padding:20px 18px}
-  .opt-3{grid-template-columns:1fr 1fr}
+
+  /* ── Step 0: Welcome ── */
+  .w-content{padding:28px 16px}
+  .prod-choice{display:flex;flex-direction:column;gap:10px}
+
+  /* ── Step 1: Sketch — sidebar OVER canvas, begge block ── */
+  .sketch-wrap{
+    display:block !important;
+    width:100%;
+    overflow:visible;
+  }
+  .sidebar{
+    display:block !important;
+    width:100%;
+    max-height:none !important;
+    height:auto;
+    overflow:visible;
+    border-right:none;
+    border-bottom:2px solid var(--bor);
+  }
+  .sb-panels{
+    overflow:visible !important;
+    height:auto;
+  }
+  .sb-panel{padding:14px 14px 18px}
+  .sb-tabs{position:sticky;top:60px;z-index:100;background:var(--warm)}
+  .canvas-area{
+    display:block;
+    width:100%;
+    padding:12px 8px;
+    box-sizing:border-box;
+  }
+  #roomCanvas{
+    display:block;
+    width:100% !important;
+    height:auto !important;
+    max-width:100% !important;
+    touch-action:none;
+  }
+  .canvas-toolbar{flex-wrap:wrap;gap:6px;justify-content:center}
+  .canvas-legend{
+    column-gap:8px;
+    font-size:9px;
+    flex-wrap:wrap;
+  }
+
+  /* ── Step 2: Details — enkelt kolonne ── */
+  .det-wrap{
+    display:block !important;
+    width:100%;
+    overflow:visible;
+  }
+  .det-main{
+    display:block;
+    padding:20px 16px;
+    width:100%;
+    max-height:none !important;
+    overflow:visible;
+    box-sizing:border-box;
+  }
+  .det-aside{
+    display:block;
+    width:100%;
+    padding:20px 16px;
+    border-left:none;
+    border-top:2px solid var(--bor);
+    max-height:none !important;
+    overflow:visible;
+    box-sizing:border-box;
+  }
+  #prevCanvas{width:100% !important;max-width:100%;height:auto !important;display:block}
+
+  /* ── Step 3: Results ── */
+  .res-hero{padding:20px 16px;flex-direction:column;align-items:flex-start;gap:16px}
+  .hero-stats{flex-wrap:wrap;gap:12px}
+  .rh-title{font-size:24px}
+  .res-cols{
+    display:block !important;
+    padding:16px !important;
+  }
+  .res-hero + .res-cols{padding-top:20px !important}
+  .res-col-main,.res-col-side{width:100%;display:block}
+  .res-col-side{margin-top:24px;padding-top:24px;border-top:2px solid var(--bor)}
+
+  /* ── Grids → single column på mobil ── */
+  .opt-3,.opt-2{grid-template-columns:1fr 1fr}
   .temp-grid{grid-template-columns:1fr}
-  .res-hero{padding:24px 18px;flex-direction:column;align-items:flex-start}
-  .hero-stats{flex-wrap:wrap;gap:14px}
-  .res-cols{grid-template-columns:1fr;gap:0}
-  .rh-title{font-size:26px}
-  .btn{min-height:44px;padding:12px 16px;font-size:12px}
+  .stat-grid{grid-template-columns:1fr 1fr}
+
+  /* ── Touch targets — Apple minimum 44px ── */
+  .btn{min-height:44px;padding:12px 14px;font-size:12px}
   .btn-sm{min-height:40px}
-  .sb-tab{padding:12px 6px;min-height:44px}
-  .shape-btn{padding:14px 8px;min-height:54px}
-  .opt-card{padding:16px}
-  .wall-item{padding:12px 10px;min-height:44px}
-  .wi-inp{width:64px;padding:8px 6px;font-size:14px;min-height:36px}
-  .wi-toggle{width:36px;height:20px}
+  .sb-tab{padding:12px 4px;min-height:44px;font-size:9px}
+  .shape-btn{padding:12px 8px;min-height:52px}
+  .opt-card{padding:14px}
+  .wall-item{padding:12px 10px;min-height:48px}
+  .wi-inp{width:60px;padding:8px 6px;font-size:14px}
+  .wi-toggle{width:36px;height:20px;flex-shrink:0}
   .wi-toggle::after{width:16px;height:16px}
   .wi-toggle.on::after{transform:translateX(16px)}
-  .inp{padding:12px;font-size:15px;min-height:44px}
-  .pt-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-}
-@media(max-width:480px){
-  header{padding:10px 14px}
-  .w-content{padding:24px 16px}
-  .res-hero{padding:20px 16px}
-  .det-main{padding:18px 14px}
-  .det-aside{padding:16px 14px}
-  .sb-panel{padding:12px 12px 20px}
-  .opt-3{grid-template-columns:1fr}
-  .rh-title{font-size:22px}
-  .canvas-area{padding:8px 4px}
-}
-@media(max-width:900px){
+  .inp{padding:12px;min-height:44px}
+
+  /* ── iOS zoom-prevention: inputs min 16px ── */
   input,select,textarea{font-size:16px !important}
-}
-/* KC/KT wall list touch targets */
-#wp-conn-wall-list > div{min-height:44px;display:flex;align-items:center}
-/* Obstacle items touch targets */
-.obs-del{min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center;font-size:20px}
-/* Wanpan KC position slider - make bigger on mobile */
-@media(max-width:900px){
-  input[type=range]{height:32px;cursor:pointer}
+
+  /* ── BOM tabel vandret scroll ── */
+  .pt-table,.p-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
+
+  /* ── Touch targets extras ── */
+  input[type=range]{height:32px}
   .gn-item{min-height:44px}
+  #wp-conn-wall-list > div{min-height:44px;display:flex;align-items:center}
+  .obs-del{min-width:40px;min-height:40px;display:flex;align-items:center;justify-content:center;font-size:20px}
 }
-/* SIDEBAR TABS */
-.sidebar{background:var(--warm);border-right:1px solid var(--bor);display:flex;flex-direction:column;overflow:hidden;max-height:calc(100vh - 65px)}
+
+@media(max-width:480px){
+  header{padding:10px 12px}
+  .w-content{padding:20px 14px}
+  .res-hero{padding:16px 14px}
+  .det-main{padding:16px 14px}
+  .det-aside{padding:16px 14px}
+  .sb-panel{padding:10px 12px 16px}
+  .opt-3{grid-template-columns:1fr}
+  .rh-title{font-size:20px}
+  .canvas-area{padding:6px 4px}
+  .btn{font-size:11px;padding:10px 12px}
+}
 .sb-tabs{display:flex;border-bottom:2px solid var(--bor);flex-shrink:0;background:var(--warm)}
 .sb-tab{flex:1;padding:10px 6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:center;cursor:pointer;border:none;background:transparent;color:var(--mid);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap}
 .sb-tab:hover{color:var(--char)}
@@ -165,6 +259,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 .obs-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:2px;flex-shrink:0}
 .obs-door{background:#E8D5BC;color:#8B6040}
 .obs-win{background:var(--blue-l);color:var(--blue)}
+.obs-stik{background:#E8F0E8;color:#4A7A4A}
 .obs-del{background:none;border:none;color:var(--mid);cursor:pointer;font-size:16px;line-height:1;margin-left:auto;padding:0 2px}
 .obs-del:hover{color:var(--red)}
 
@@ -178,7 +273,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 
 /* CANVAS AREA */
 .canvas-area{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;flex:1;background:var(--cream)}
-#roomCanvas{background:var(--warm);border:1px solid var(--bor);box-shadow:var(--sh);cursor:crosshair;display:block;max-width:100%;height:auto}
+#roomCanvas{background:var(--warm);border:1px solid var(--bor);box-shadow:var(--sh);cursor:crosshair;display:block;max-width:100%;height:auto;user-select:none;-webkit-user-select:none}
 .canvas-hint{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--light);margin-top:10px;text-align:center}
 .canvas-toolbar{display:flex;gap:8px;margin-bottom:14px}
 
@@ -186,7 +281,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 #s2{flex:1}
 .det-wrap{display:grid;grid-template-columns:1fr 360px;flex:1}
 .det-main{padding:40px 44px;overflow-y:auto;max-height:calc(100vh - 65px)}
-.det-aside{background:var(--warm);border-left:1px solid var(--bor);padding:28px 24px;display:flex;flex-direction:column;gap:20px;overflow-y:auto;max-height:calc(100vh - 65px)}
+.det-aside{background:var(--warm);border-left:1px solid var(--bor);padding:28px 24px;display:flex;flex-direction:column;gap:20px;overflow-y:auto;max-height:calc(100vh - 65px);position:relative;z-index:1}
 .sec-head{font-size:13px;font-weight:400;letter-spacing:.01em;margin-bottom:3px}
 .sec-sub{font-size:14px;font-weight:300;color:var(--mid);margin-bottom:22px}
 .opt-grid{display:grid;gap:10px;margin-bottom:20px}
@@ -210,7 +305,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 .stat-unit{font-family:'DM Mono',monospace;font-size:12px;color:var(--mid);margin-left:3px}
 
 /* RESULTS */
-#s3{flex:1}
+#s3{display:none;flex-direction:column;min-height:100vh}
+#s3.active{display:flex;flex-direction:column}
 .res-hero{background:var(--char);color:var(--cream);padding:36px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .rh-left .ey{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
 .rh-title{font-size:36px;font-weight:300;line-height:1.2;margin-bottom:6px}
@@ -222,7 +318,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 .hs-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;color:var(--light);margin-top:3px}
 
 .res-body{padding:36px 44px;overflow-y:auto}
-.res-cols{display:grid;grid-template-columns:1fr 340px;gap:32px}
+.res-cols{display:grid;grid-template-columns:1fr 340px;gap:32px;padding:32px 44px}
 
 /* PRODUCT TABLE */
 .p-table{width:100%;border-collapse:collapse;margin-bottom:20px}
@@ -255,7 +351,8 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 .ic-specs{font-family:'DM Mono',monospace;font-size:11px;color:var(--char);line-height:2.1}
 
 /* INSTALLATION GUIDE */
-#s4{flex:1}
+#s4{display:none;flex-direction:column;min-height:100vh}
+#s4.active{display:flex;flex-direction:column}
 .guide-wrap{display:grid;grid-template-columns:240px 1fr;flex:1}
 .guide-nav{background:var(--warm);border-right:1px solid var(--bor);padding:24px 18px;overflow-y:auto;max-height:calc(100vh - 65px)}
 .guide-content{padding:32px 44px;overflow-y:auto;max-height:calc(100vh - 65px)}
@@ -458,6 +555,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
               <button class="btn btn-out btn-sm" onclick="addObs('dør')" data-i18n="addDoor">+ Dør</button>
               <button class="btn btn-out btn-sm" onclick="addObs('vindue')" data-i18n="addWindow">+ Vindue</button>
               <button class="btn btn-out btn-sm" onclick="addObs('andet')" data-i18n="addOther">+ Andet</button>
+              <button class="btn btn-out btn-sm" id="btn-add-stik" onclick="addObs('stikdåse')" style="display:none">+ Stikdåse</button>
             </div>
             <div id="obs-list"></div>
           </div>
@@ -557,7 +655,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
         <button class="btn btn-out btn-sm" onclick="resetRoom()">↺ Nulstil rum</button>
       </div>
       <canvas id="roomCanvas" width="760" height="520" style="max-width:100%;height:auto;display:block"></canvas>
-      <div class="canvas-hint" id="canvas-hint-text" data-i18n="canvasHint">Klik på en væg for at vælge · Juster mål i sidepanelet</div>
+      <div class="canvas-hint" id="canvas-hint-text">Klik på væg for at vælge · Dobbeltklik for at til/fravælge panel · Træk forhindringer langs væggen</div>
       <div id="canvas-legend" class="canvas-legend"></div>
     </div>
   </div>
@@ -688,7 +786,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
   </div>
   <div class="res-body">
     <div class="res-cols">
-      <div>
+      <div class="res-col-main">
         <h3 style="font-size:20px;font-weight:400;margin-bottom:3px">Produktliste</h3>
         <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--mid);margin-bottom:16px">Vejledende priser ekskl. moms og installation</div>
         <table class="p-table" id="ptable">
@@ -713,7 +811,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
           <button class="btn btn-out btn-sm" style="margin-top:10px" onclick="downloadOverview()" data-i18n="downloadSVGLong">Download oversigt som SVG ↓</button>
         </div>
       </div>
-      <div>
+      <div class="res-col-side">
         <div class="sav-card">
           <div class="sav-title" data-i18n="savings">Estimeret besparelse</div>
           <div class="sav-num" id="sav-y">—</div>
@@ -1073,10 +1171,10 @@ const S = {
 // Wall definitions per shape [name, defaultLength, hasPanel]
 // Each wall also gets: flowDir ('cw'=clockwise / 'ccw'=counter-clockwise), connPos (0-1 where connection enters)
 const SHAPES = {
-  rect: [['A (Nord)',5,true],['B (Øst)',4,true],['C (Syd)',5,false],['D (Vest)',4,true]],
-  l:    [['A',5,true],['B',2,true],['C',3,true],['D',4,true],['E',2,false],['F',2,true]],
-  t:    [['A',6,true],['B',2,true],['C',2,true],['D',2,false],['E',2,true],['F',2,true],['G',2,false],['H',2,true]],
-  u:    [['A (venstre arm top)',2,true],['B (venstre arm)',3,true],['C (indre bund)',2,true],['D (højre arm)',3,true],['E (højre arm top)',2,true],['F (ydre højre)',5,false],['G (ydre bund)',6,true],['H (ydre venstre)',5,false]],
+  rect: [['A (Nord)',5,true],['B (Øst)',4,true],['C (Syd)',5,true],['D (Vest)',4,true]],
+  l:    [['A',5,true],['B',2,true],['C',3,true],['D',4,true],['E',2,true],['F',2,true]],
+  t:    [['A',6,true],['B',2,true],['C',2,true],['D',2,true],['E',2,true],['F',2,true],['G',2,true],['H',2,true]],
+  u:    [['A (venstre arm top)',2,true],['B (venstre arm)',3,true],['C (indre bund)',2,true],['D (højre arm)',3,true],['E (højre arm top)',2,true],['F (ydre højre)',5,true],['G (ydre bund)',6,true],['H (ydre venstre)',5,true]],
 };
 
 let walls = [];
@@ -1172,6 +1270,7 @@ function go(n){
 // ─── WELCOME ───────────────────────────────────────────────────────────────
 function pickProduct(p,el){
   S.product=p;
+  updateStikBtn();
   document.querySelectorAll('.prod-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   document.getElementById('btn-start').disabled=false;
@@ -1441,12 +1540,20 @@ function renderWallList(){
 // ─── OBSTACLES ─────────────────────────────────────────────────────────────
 function addObs(type){
   const wallIdx=S.activeWall;
+  if(wallIdx<0||!walls[wallIdx]){
+    alert(t('selectWallFirst'));
+    return;
+  }
   const w=walls[wallIdx].len;
-  const defWidth=type==='dør'?0.9:type==='vindue'?1.2:0.6;
-  // default pos: doors near start (0.15), windows in middle (0.5)
-  const defPos=type==='vindue'?0.5:0.15;
-  obstacles.push({wallIdx,type,width:Math.min(defWidth,w*0.4),pos:defPos});
+  // stikdåse: 22cm wide (APK-22), door: 90cm, window: 120cm, other: 60cm
+  const defWidth=type==='dør'?0.9:type==='vindue'?1.2:type==='stikdåse'?0.22:0.6;
+  const defPos=type==='vindue'?0.5:0.5;
+  obstacles.push({wallIdx,type,width:Math.min(defWidth,w*0.9),pos:defPos});
   renderObsList();drawRoom();updateDetails();
+}
+function updateStikBtn(){
+  const btn=document.getElementById('btn-add-stik');
+  if(btn) btn.style.display=S.product==='wanpan'?'':'none';
 }
 function removeObs(i){obstacles.splice(i,1);renderObsList();drawRoom();updateDetails();}
 function renderObsList(){
@@ -1457,15 +1564,16 @@ function renderObsList(){
     const wallName=walls[o.wallIdx]?.name||'';
     const wallLenCm=Math.round(walls[o.wallIdx]?.len*100)||300;
     const obsWidthCm=Math.round(o.width*100);
-    // pos is fraction 0-1; convert to cm from wall start
     const posCm=Math.round((o.pos||0.15)*wallLenCm);
     const d=document.createElement('div');
     d.className='obs-item';
+    if(i===activeObsIdx) d.style.outline='2px solid var(--acc)';
+    d.onclick=()=>{ activeObsIdx=i; drawRoom(); renderObsList(); };
     d.style.flexDirection='column';
     d.style.alignItems='flex-start';
     d.innerHTML=`
       <div style="display:flex;align-items:center;gap:6px;width:100%">
-        <span class="obs-tag obs-${o.type==='vindue'?'win':'door'}">${o.type}</span>
+        <span class="obs-tag obs-${o.type==='vindue'?'win':o.type==='stikdåse'?'stik':'door'}">${o.type}</span>
         <span style="font-size:12px;font-weight:300;flex:1">${wallName}</span>
         <button class="obs-del" onclick="removeObs(${i})">×</button>
       </div>
@@ -1787,14 +1895,37 @@ function drawWalls(ctx,pts,cv){
       const ang = Math.atan2(dy,dx);
 
       // obstacle box
+      const isActiveObs = (typeof getActiveObsIdx==='function' && getActiveObsIdx()===obstacles.indexOf(o));
       ctx.save();ctx.translate(cX,cY);ctx.rotate(ang);
-      ctx.fillStyle=o.type==='vindue'?'rgba(61,90,115,0.28)':'rgba(184,84,80,0.22)';
+      const obsCol=o.type==='vindue'?'#3D5A73':o.type==='stikdåse'?'#4A7A4A':'#B85450';
+      const obsFill=o.type==='vindue'?'rgba(61,90,115,0.28)':o.type==='stikdåse'?'rgba(74,122,74,0.22)':'rgba(184,84,80,0.22)';
+      // Highlight aktiv forhindring med glow
+      if(isActiveObs){
+        ctx.shadowColor=obsCol; ctx.shadowBlur=10;
+        ctx.strokeStyle=obsCol; ctx.lineWidth=3;
+        ctx.strokeRect(-obsLen/2-3,-8,obsLen+6,16);
+        ctx.shadowBlur=0;
+      }
+      ctx.fillStyle=obsFill;
       ctx.fillRect(-obsLen/2,-5,obsLen,10);
-      ctx.strokeStyle=o.type==='vindue'?'#3D5A73':'#B85450';
-      ctx.lineWidth=1.5;ctx.strokeRect(-obsLen/2,-5,obsLen,10);
-      ctx.fillStyle=o.type==='vindue'?'#3D5A73':'#B85450';
-      ctx.font='9px DM Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
-      ctx.fillText(o.type==='dør'?'DØR':o.type==='vindue'?'VIN':'?',0,0);
+      ctx.strokeStyle=obsCol;
+      ctx.lineWidth=isActiveObs?2.5:1.5;
+      ctx.strokeRect(-obsLen/2,-5,obsLen,10);
+      ctx.fillStyle=obsCol;
+      ctx.font=`${isActiveObs?'bold ':''}9px DM Mono,monospace`;
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      ctx.fillText(o.type==='dør'?'DØR':o.type==='vindue'?'VIN':o.type==='stikdåse'?'STK':'?',0,0);
+      // Drag-håndtag: to lodrette streger i midten
+      if(!isActiveObs){
+        ctx.strokeStyle=obsCol+'88'; ctx.lineWidth=1;
+        ctx.beginPath(); ctx.moveTo(-2,-3); ctx.lineTo(-2,3); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(2,-3);  ctx.lineTo(2,3);  ctx.stroke();
+      } else {
+        // Pileindikator: "træk mig"
+        ctx.fillStyle=obsCol;
+        ctx.font='7px DM Mono,monospace';
+        ctx.fillText('◂ træk ▸',0,14);
+      }
       ctx.restore();
 
       // distance label — always "X cm fra start" where start = sp
@@ -1857,6 +1988,7 @@ function renderCanvasLegend(){
     {type:'box', color:'#1C1C1A', label:'KUL', text:'Afslutning'},
     {type:'box', color:'#7B5EA7', label:S.wpConnType==='gulv'?'KC':'KT', text:'Tilslutning ('+(S.wpConnType==='gulv'?'gulv':'væg')+')'},
     {type:'box', color:'#3D5A73', label:'KL', text:'Ligekobling (dør/over 4m)'},
+    {type:'box', color:'#4A7A4A', label:'STK', text:'Stikdåse (APK-22 + PX)'},
     {type:'box', color:'#5A8A5A', label:'KV', text:'Vinkelkobling (hjørne)'},
     {type:'sep'},
     {type:'line', color:'#B8B4AC', text:'Ingen panel'},
@@ -1894,14 +2026,22 @@ function drawBoxMarker(ctx,x,y,label,col){
   ctx.restore();
 }
 
-// canvas click → select wall
+// ── Canvas interaktion: vægvalg, forhindring drag, panel toggle ────────────
+let dragObsIdx = -1;      // index i obstacles[] der trækkes
+let dragObsWall = -1;     // hvilken væg forhindringen tilhører
+let activeObsIdx = -1;    // markeret forhindring (highlight)
+let isDragging = false;
+let dragStartX = 0, dragStartY = 0;
+
+// Eksponér så drawWalls kan bruge det
+function getActiveObsIdx(){ return activeObsIdx; }
+
 document.addEventListener('DOMContentLoaded',()=>{
   const cv=document.getElementById('roomCanvas');
 
-  // ── Unified pointer-position helper (mouse + touch) ────────────────────
+  // ── Pointer-position helper (mouse + touch, korrekt canvas-skalering) ──
   function getCanvasPos(e){
     const r=cv.getBoundingClientRect();
-    // Scale from CSS pixels to canvas pixels
     const scaleX=cv.width/r.width;
     const scaleY=cv.height/r.height;
     let cx,cy;
@@ -1918,33 +2058,144 @@ document.addEventListener('DOMContentLoaded',()=>{
     return{x:cx,y:cy};
   }
 
-  // ── Core canvas tap/click handler ──────────────────────────────────────
-  function handleCanvasTap(e){
-    const{x:mx,y:my}=getCanvasPos(e);
+  // ── Find forhindring tæt på klik/touch ──────────────────────────────────
+  function findObsAtPoint(mx,my,pts){
+    if(!pts)return -1;
+    const HIT=18; // px radius
+    for(let i=obstacles.length-1;i>=0;i--){
+      const o=obstacles[i];
+      const w=walls[o.wallIdx];
+      if(!w||!pts[o.wallIdx])continue;
+      const p1=pts[o.wallIdx], p2=pts[(o.wallIdx+1)%pts.length];
+      const dx=p2.x-p1.x, dy=p2.y-p1.y;
+      const len=Math.sqrt(dx*dx+dy*dy);
+      const cX=p1.x+dx*o.pos;
+      const cY=p1.y+dy*o.pos;
+      if(Math.hypot(mx-cX,my-cY)<HIT) return i;
+    }
+    return -1;
+  }
 
-    if(customDrawing && !customClosed){
-      const CSCALE=60;
-      const mx2=(mx-cv.width/2)/CSCALE;
-      const my2=(my-cv.height/2)/CSCALE;
+  // ── Projicér punkt på væg og returnér ny pos (0-1) ─────────────────────
+  function projectOnWall(mx,my,wallIdx,pts){
+    const p1=pts[wallIdx], p2=pts[(wallIdx+1)%pts.length];
+    const dx=p2.x-p1.x, dy=p2.y-p1.y;
+    const len2=dx*dx+dy*dy;
+    if(len2===0)return 0;
+    const t=((mx-p1.x)*dx+(my-p1.y)*dy)/len2;
+    return Math.max(0.02,Math.min(0.98,t));
+  }
 
-      if(customPoints.length>=3){
-        const fp=customPoints[0];
-        const fpX=fp.x*CSCALE+cv.width/2;
-        const fpY=fp.y*CSCALE+cv.height/2;
-        if(Math.hypot(mx-fpX,my-fpY)<28){ // larger touch target on mobile
-          customClosed=true;customDrawing=false;
-          document.getElementById('custom-hint').style.display='none';
-          buildWallsFromCustomPoints();
-          drawRoom();renderWallList();
-          return;
-        }
+  // ── Custom tegnetilstand ────────────────────────────────────────────────
+  function handleCustomDraw(mx,my){
+    const CSCALE=60;
+    const mx2=(mx-cv.width/2)/CSCALE;
+    const my2=(my-cv.height/2)/CSCALE;
+    if(customPoints.length>=3){
+      const fp=customPoints[0];
+      const fpX=fp.x*CSCALE+cv.width/2;
+      const fpY=fp.y*CSCALE+cv.height/2;
+      if(Math.hypot(mx-fpX,my-fpY)<28){
+        customClosed=true;customDrawing=false;
+        document.getElementById('custom-hint').style.display='none';
+        buildWallsFromCustomPoints();
+        drawRoom();renderWallList();
+        return;
       }
-      customPoints.push({x:mx2,y:my2});
+    }
+    customPoints.push({x:mx2,y:my2});
+    drawRoom();
+  }
+
+  // ── POINTER DOWN (mouse + touch start) ─────────────────────────────────
+  function onPointerDown(e){
+    const{x:mx,y:my}=getCanvasPos(e);
+    dragStartX=mx; dragStartY=my;
+    isDragging=false;
+
+    if(customDrawing&&!customClosed) return; // håndteres i pointerUp
+
+    const pts=getRoomPts(cv.width,cv.height);
+
+    // Tjek om vi rammer en forhindring
+    const obsIdx=findObsAtPoint(mx,my,pts);
+    if(obsIdx>=0){
+      dragObsIdx=obsIdx;
+      dragObsWall=obstacles[obsIdx].wallIdx;
+      activeObsIdx=obsIdx;
       drawRoom();
+      e.preventDefault && e.preventDefault();
+      return;
+    }
+    dragObsIdx=-1;
+  }
+
+  // ── POINTER MOVE (mouse + touch move) ──────────────────────────────────
+  function onPointerMove(e){
+    const{x:mx,y:my}=getCanvasPos(e);
+    const moved=Math.hypot(mx-dragStartX,my-dragStartY);
+
+    // Opdater cursor baseret på hvad der er under musen
+    if(dragObsIdx<0){
+      const pts=getRoomPts(cv.width,cv.height);
+      const hit=findObsAtPoint(mx,my,pts);
+      cv.style.cursor=hit>=0?'grab':'crosshair';
+    }
+
+    if(dragObsIdx<0)return;
+    if(moved>4) isDragging=true;
+    if(!isDragging)return;
+
+    cv.style.cursor='grabbing';
+    const pts=getRoomPts(cv.width,cv.height);
+    if(!pts)return;
+
+    // Projicér museposition på den aktive væg
+    const newPos=projectOnWall(mx,my,dragObsWall,pts);
+    obstacles[dragObsIdx].pos=newPos;
+    drawRoom();
+    // Opdatér position-input i sidebar
+    const posInput=document.getElementById('obs-pos-'+dragObsIdx);
+    if(posInput){
+      const wallLenCm=Math.round(walls[dragObsWall].len*100);
+      posInput.value=Math.round(newPos*wallLenCm);
+    }
+    e.preventDefault && e.preventDefault();
+  }
+
+  // ── POINTER UP (mouse + touch end) ─────────────────────────────────────
+  function onPointerUp(e){
+    const{x:mx,y:my}=getCanvasPos(e);
+    const wasDragging=isDragging;
+    isDragging=false;
+    cv.style.cursor='crosshair';
+
+    if(customDrawing&&!customClosed){
+      handleCustomDraw(mx,my);
+      dragObsIdx=-1;
       return;
     }
 
-    // Normal wall selection — larger hit target on touch
+    if(dragObsIdx>=0){
+      // Var det et klik (ikke drag) → vælg forhindringen i sidebar
+      if(!wasDragging){
+        activeObsIdx=dragObsIdx;
+        showTab('obs');
+        // Scroll til forhindringen i listen
+        setTimeout(()=>{
+          const items=document.querySelectorAll('#obs-list .obs-item');
+          if(items[dragObsIdx]) items[dragObsIdx].scrollIntoView({behavior:'smooth',block:'nearest'});
+        },80);
+      } else {
+        updateDetails();
+      }
+      dragObsIdx=-1;
+      drawRoom();
+      return;
+    }
+    dragObsIdx=-1;
+
+    // Intet obs ramt — tjek væg
     const pts=getRoomPts(cv.width,cv.height);
     if(!pts)return;
     const isMobile=window.innerWidth<=900;
@@ -1956,36 +2207,50 @@ document.addEventListener('DOMContentLoaded',()=>{
       if(d<bestD){bestD=d;best=i;}
     }
     if(best>=0&&bestD<hitDist){
+      activeObsIdx=-1;
       S.activeWall=best;
       renderWallList();
       drawRoom();
       const awn=document.getElementById('active-wall-name');
       if(awn) awn.textContent=walls[S.activeWall]?.name||'—';
-      // On mobile: scroll sidebar to wall list tab
       if(isMobile) showTab('vaegge');
     }
   }
 
-  // ── Touch: track movement to distinguish tap from scroll ───────────────
-  let touchStartX=0,touchStartY=0,touchMoved=false;
-  cv.addEventListener('touchstart',e=>{
-    touchStartX=e.touches[0].clientX;
-    touchStartY=e.touches[0].clientY;
-    touchMoved=false;
-  },{passive:true});
-  cv.addEventListener('touchmove',e=>{
-    const dx=e.touches[0].clientX-touchStartX;
-    const dy=e.touches[0].clientY-touchStartY;
-    if(Math.hypot(dx,dy)>8) touchMoved=true;
-  },{passive:true});
-  cv.addEventListener('touchend',e=>{
-    if(!touchMoved) handleCanvasTap(e);
+  // ── Mouse events ────────────────────────────────────────────────────────
+  cv.addEventListener('mousedown', onPointerDown);
+  cv.addEventListener('mousemove', onPointerMove);
+  cv.addEventListener('mouseup',   onPointerUp);
+
+  // ── Dobbeltklik på væg → toggle panel ───────────────────────────────────
+  cv.addEventListener('dblclick', e=>{
+    const{x:mx,y:my}=getCanvasPos(e);
+    const pts=getRoomPts(cv.width,cv.height);
+    if(!pts)return;
+    let best=-1,bestD=999;
+    for(let i=0;i<pts.length;i++){
+      const d=ptSegDist(mx,my,pts[i].x,pts[i].y,pts[(i+1)%pts.length].x,pts[(i+1)%pts.length].y);
+      if(d<bestD){bestD=d;best=i;}
+    }
+    if(best>=0&&bestD<30&&walls[best]){
+      walls[best].hasPanel=!walls[best].hasPanel;
+      S.activeWall=best;
+      renderWallList();drawRoom();updateDetails();
+    }
+  });
+
+  // ── Touch events ────────────────────────────────────────────────────────
+  cv.addEventListener('touchstart', e=>{
+    onPointerDown(e);
+  },{passive:false});
+  cv.addEventListener('touchmove', e=>{
+    onPointerMove(e);
+  },{passive:false});
+  cv.addEventListener('touchend', e=>{
+    onPointerUp(e);
   },{passive:true});
 
-  // ── Mouse click (desktop) ──────────────────────────────────────────────
-  cv.addEventListener('click',handleCanvasTap);
-
-  // ── Fortryd: højreklik (desktop) + lang-tryk knap (mobil) ─────────────
+  // ── Højreklik → fortryd custom punkt ────────────────────────────────────
   cv.addEventListener('contextmenu',e=>{
     e.preventDefault();
     if(customDrawing) undoCustomPoint();
@@ -2271,6 +2536,7 @@ function buildResults(){
 
     panelWalls.forEach(w=>{
       const wallI=walls.indexOf(w);
+      // stikdåse bryder IKKE kredsløbet — kun dør/andet gør det
       const wallObs=obstacles.filter(o=>o.wallIdx===wallI&&(o.type==='dør'||o.type==='andet'));
       const obsWmm=wallObs.reduce((a,o)=>a+Math.round(o.width*1000),0);
       const wallMm=Math.round(w.len*1000);
@@ -2434,6 +2700,7 @@ function buildResults(){
 
     walls.filter(w=>w.hasPanel).forEach(w=>{
       const wallI=walls.indexOf(w);
+      // stikdåse bryder IKKE kredsløbet — kun dør/andet gør det
       const wallObs=obstacles.filter(o=>o.wallIdx===wallI&&(o.type==='dør'||o.type==='andet'));
       const wallLenCm=Math.round(w.len*100);
 
@@ -2489,7 +2756,7 @@ function buildResults(){
     // Covers all gaps along panel walls (between panels, at ends)
     const totalWallCm=walls.filter(w=>w.hasPanel).reduce((s,w)=>{
       const wallIdx=walls.indexOf(w);
-      const wallObs2=obstacles.filter(o=>o.wallIdx===wallIdx&&(o.type==='dør'||o.type==='andet'));
+      const wallObs2=obstacles.filter(o=>o.wallIdx===wallIdx&&(o.type==='dør'||o.type==='andet')); // stikdåse tæller ikke som afbrydelse
       const obsLenCm2=wallObs2.reduce((a,o)=>a+Math.round(o.width*100),0);
       return s+Math.max(0,Math.round(w.len*100)-obsLenCm2);
     },0);
@@ -2505,9 +2772,11 @@ function buildResults(){
     const nKC=connType==='gulv'?1:0;  // Gulvindgang
     const nKT=connType==='vaeg'?1:0;  // Vægindgang
 
-    // KL ligekobling: per door + per wall segment over 4m
+    // KL ligekobling: per door + per stikdåse + per wall segment over 4m
+    // Montagevejledning: "For at få plads til El-kontakter skal der monteres ligekobling type KL"
     const nKL_door=obstacles.filter(o=>o.type==='dør'||o.type==='andet').length;
-    const nKL=nKL_door+nKL_long;
+    const nStik=obstacles.filter(o=>o.type==='stikdåse').length;
+    const nKL=nKL_door+nKL_long+nStik; // KL per stikdåse
 
     // KV vinkelkobling: bruges ved ALLE hjørner hvor panelerne fortsætter rundt
     // projektwpdk.pdf beregningseksempel: 4-vægget rum = 4 hjørner → 3 KV
@@ -2573,7 +2842,9 @@ function buildResults(){
       {t:'APT32',n:'Blændpanel APT32 — 32cm (over CRA ventil)',q:nBlendApt32,u:99},
       ...(nKC>0?[{t:'KC',n:'Koblingssæt KC — gulvindgang (frem+retur)',q:nKC,u:79}]:[]),
       ...(nKT>0?[{t:'KT',n:'Koblingssæt KT — vægindgang',q:nKT,u:199}]:[]),
-      ...(nKL>0?[{t:'KL',n:'Ligekobling KL (dør / væg over 4m)',q:nKL,u:179}]:[]),
+      ...(nKL>0?[{t:'KL',n:'Ligekobling KL (dør / stikdåse / væg over 4m)',q:nKL,u:179}]:[]),
+      ...(nStik>0?[{t:'APK22',n:'Blændpanel APK-22 — til stikdåse (220mm)',q:nStik,u:99}]:[]),
+      ...(nStik>0?[{t:'PX',n:'Kontaktunderlag PX — LK Fuga-serie',q:nStik,u:39}]:[]),
       ...(nKV>0?[{t:'KV',n:'Vinkelkobling KV — hjørne (rør bøjning)',q:nKV,u:199}]:[]),
       ...(nPO>0?[{t:'PO',n:'Hjørne ind PO — indvendigt hjørne (plastik)',q:nPO,u:29}]:[]),
       ...(nPP>0?[{t:'PP',n:'Hjørne ud PP — udvendigt hjørne (plastik)',q:nPP,u:34}]:[]),
@@ -2605,6 +2876,7 @@ function buildResults(){
       `Systemet har <strong>${circ} kredsløb</strong> — maks. 15 m pr. kredsløb.
       ${nKL_door>0?`<br>${nKL_door} KL ligekobling(er) ved dør/forhindring.`:''}
       ${nKL_long>0?`<br>${nKL_long} KL ligekobling(er) pga. vægge over 4 m.`:''}
+      ${nStik>0?`<br>${nStik} stikdåse(r) — KL + APK-22 blændpanel + PX kontaktunderlag (LK Fuga).`:''}
       ${nKV>0?`<br>${nKV} KV vinkelkobling(er) ved hjørner (rørene bøjer rundt).`:''}
       ${nPO>0?`<br>${nPO} PO hjørne-ind + ${nPP} PP hjørne-ud (plastikdækning).`:''}
       ${nPP>0&&nPO===0?`<br>${nPP} PP hjørne ud (plastikdækning).`:''}
@@ -2836,7 +3108,7 @@ function buildOverview(){
       const obHalf=(ob.width/w.len)*len/2;
       const cx=spOv.x+dx*flowPos, cy=spOv.y+dy*flowPos;
       const isBreak=ob.type==='dør'||ob.type==='andet';
-      const col=ob.type==='vindue'?BLU:RED;
+      const col=ob.type==='vindue'?BLU:ob.type==='stikdåse'?'#4A7A4A':RED;
       // Obstacle bar on wall line
       svg+=`<line x1="${cx-ux*obHalf}" y1="${cy-uy*obHalf}" x2="${cx+ux*obHalf}" y2="${cy+uy*obHalf}" stroke="${col}" stroke-width="5" stroke-linecap="square" opacity=".7"/>`;
       // Position label (distance from sp = flow start)
@@ -2854,6 +3126,7 @@ function buildOverview(){
   const ly=H-52;
   const legItems=isWP?[
     {col:PUR,lbl:'KC/KT',desc:'Tilslutning'},
+    {col:'#4A7A4A',lbl:'STK',desc:'Stikdåse'},
     {col:BLU,lbl:'WP',desc:'Wanpan panel',line:true},
     {col:BLK,lbl:'KUL',desc:'Afslutning'},
     {col:BLU,lbl:'KL',desc:'Ligekobling'},
@@ -3764,7 +4037,7 @@ function buildRoomMiniMap(){
       const flowPos=isRevM?(1-rawPos):rawPos;
       const obHalf=(ob.width/w.len)*len/2;
       const cx=spM.x+dx*flowPos, cy=spM.y+dy*flowPos;
-      const col=ob.type==='vindue'?BLU:RED;
+      const col=ob.type==='vindue'?BLU:ob.type==='stikdåse'?'#4A7A4A':RED;
       svg+=`<line x1="${cx-ux*obHalf}" y1="${cy-uy*obHalf}" x2="${cx+ux*obHalf}" y2="${cy+uy*obHalf}" stroke="${col}" stroke-width="4" stroke-linecap="square" opacity=".75"/>`;
     });
   }
