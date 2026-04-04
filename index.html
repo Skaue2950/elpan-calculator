@@ -338,13 +338,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
 .wb-obs{font-family:'Inter',sans-serif;font-size:9px;color:var(--red);margin-top:2px}
 
 /* SAVINGS */
-.sav-card{background:var(--char);color:var(--cream);padding:24px;margin-bottom:14px}
-.sav-title{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.07em;text-transform:uppercase;color:var(--acc);margin-bottom:14px}
-.sav-num{font-size:48px;font-weight:300;line-height:1}
-.sav-per{font-size:14px;color:var(--light);margin-bottom:14px}
-.sav-rows{display:flex;flex-direction:column;gap:0}
-.sav-row{display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:10px;color:var(--light);padding:7px 0;border-top:1px solid rgba(255,255,255,.08)}
-.sav-val{color:var(--acc-l)}
+/* sav-card CSS removed */
 
 .info-card{background:var(--warm);border:1px solid var(--bor);padding:20px;margin-bottom:14px}
 .ic-title{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;color:var(--mid);margin-bottom:10px}
@@ -1381,10 +1375,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
         <div class="stat-card"><div class="stat-lbl" data-i18n="heatLoss">Varmetab est.</div><div class="stat-val"><span id="sv-hloss">—</span><span class="stat-unit">W</span></div></div>
         <div class="stat-card"><div class="stat-lbl" data-i18n="circuits">Kredsløb</div><div class="stat-val"><span id="sv-circ">—</span></div></div>
       </div>
-      <div style="padding:14px;background:var(--acc-l);border-left:3px solid var(--acc)">
-        <div style="font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.06em;text-transform:uppercase;color:#8B6040;margin-bottom:6px" data-i18n="savingsLabel">25% Besparelse</div>
-        <div style="font-size:13px;font-weight:300;color:var(--char);line-height:1.5" data-i18n="savingsSub">Dokumenteret 20–37% energibesparelse med varmeomslutningsprincippet.</div>
-      </div>
+
     </div>
   </div>
 </div>
@@ -1447,15 +1438,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:20p
         </div>
       </div>
       <div class="res-col-side">
-        <div class="sav-card">
-          <div class="sav-title" data-i18n="savings">Estimeret besparelse</div>
-          <div class="sav-num" id="sav-y">—</div>
-          <div class="sav-per">kr. pr. år · 25% besparelse</div>
-          <div class="sav-rows">
-            <div class="sav-row"><span>10 år</span><span class="sav-val" id="sav-10">—</span></div>
-            <div class="sav-row"><span>25 år</span><span class="sav-val" id="sav-25">—</span></div>
-          </div>
-        </div>
+
         <div class="info-card">
           <div class="ic-title" data-i18n="techSpecs">Tekniske specifikationer</div>
           <div class="ic-specs" id="tech-specs">—</div>
@@ -1665,6 +1648,27 @@ const LANG = {
   downloadSVGLong:  {da:'Download oversigt som SVG ↓',en:'Download overview as SVG ↓',no:'Last ned oversikt som SVG ↓',sv:'Ladda ner översikt som SVG ↓',de:'Übersicht als SVG herunterladen ↓',pl:'Pobierz przegląd jako SVG ↓',fr:'Télécharger aperçu en SVG ↓',it:'Scarica panoramica come SVG ↓',ja:'概要をSVGでダウンロード ↓'},
   savingsLabel:     {da:'25% Besparelse',      en:'25% Savings',        no:'25% Besparelse',      sv:'25% Besparing',       de:'25% Einsparung',      pl:'25% Oszczędności',     fr:'25% Économies',        it:'25% Risparmio',        ja:'25%節約'},
   savingsPer:       {da:'kr. pr. år · 25% besparelse',en:'€/year · 25% savings',no:'€/år · 25% besparelse',sv:'€/år · 25% besparing',de:'€/Jahr · 25% Einsparung',pl:'€/rok · 25% oszczędności',fr:'€/an · 25% économies',it:'€/anno · 25% risparmio',ja:'€/年・25%節約'},
+  // Mobile wizard
+  mwS0Title:        {da:'Hvilket varmesystem?',       en:'Which heating system?',       no:'Hvilket varmesystem?',        sv:'Vilket värmesystem?',         de:'Welches Heizsystem?',          pl:'Jaki system grzewczy?',        fr:'Quel système de chauffage?',   it:'Quale sistema di riscaldamento?', ja:'どの暖房システム？'},
+  mwS0Sub:          {da:'Vælg det system du ønsker beregnet', en:'Select the system you want calculated', no:'Velg systemet du vil beregne', sv:'Välj det system du vill beräkna', de:'Wählen Sie das System, das Sie berechnen möchten', pl:'Wybierz system do obliczenia', fr:'Sélectionnez le système à calculer', it:'Seleziona il sistema da calcolare', ja:'計算するシステムを選択'},
+  mwStep1of5:       {da:'Trin 1 af 5',               en:'Step 1 of 5',                  no:'Trinn 1 av 5',                sv:'Steg 1 av 5',                 de:'Schritt 1 von 5',              pl:'Krok 1 z 5',                   fr:'Étape 1 sur 5',                it:'Passo 1 di 5',                    ja:'ステップ1/5'},
+  mwStep2of5:       {da:'Trin 2 af 5',               en:'Step 2 of 5',                  no:'Trinn 2 av 5',                sv:'Steg 2 av 5',                 de:'Schritt 2 von 5',              pl:'Krok 2 z 5',                   fr:'Étape 2 sur 5',                it:'Passo 2 di 5',                    ja:'ステップ2/5'},
+  mwStep3of5:       {da:'Trin 3 af 5',               en:'Step 3 of 5',                  no:'Trinn 3 av 5',                sv:'Steg 3 av 5',                 de:'Schritt 3 von 5',              pl:'Krok 3 z 5',                   fr:'Étape 3 sur 5',                it:'Passo 3 di 5',                    ja:'ステップ3/5'},
+  mwStep4of5:       {da:'Trin 4 af 5',               en:'Step 4 of 5',                  no:'Trinn 4 av 5',                sv:'Steg 4 av 5',                 de:'Schritt 4 von 5',              pl:'Krok 4 z 5',                   fr:'Étape 4 sur 5',                it:'Passo 4 di 5',                    ja:'ステップ4/5'},
+  mwStep5of5:       {da:'Trin 5 af 5',               en:'Step 5 of 5',                  no:'Trinn 5 av 5',                sv:'Steg 5 av 5',                 de:'Schritt 5 von 5',              pl:'Krok 5 z 5',                   fr:'Étape 5 sur 5',                it:'Passo 5 di 5',                    ja:'ステップ5/5'},
+  mwS1Title:        {da:'Rummets form',               en:'Room shape',                   no:'Rommets form',                sv:'Rumsform',                    de:'Raumform',                     pl:'Kształt pokoju',               fr:'Forme de la pièce',            it:'Forma della stanza',              ja:'部屋の形状'},
+  mwS1Sub:          {da:'Hvilken form ligner dit rum bedst?', en:'Which shape best matches your room?', no:'Hvilken form ligner rommet ditt best?', sv:'Vilken form liknar ditt rum bäst?', de:'Welche Form ähnelt Ihrem Zimmer am meisten?', pl:'Który kształt najlepiej pasuje do Twojego pokoju?', fr:'Quelle forme ressemble le plus à votre pièce?', it:'Quale forma somiglia di più alla tua stanza?', ja:'あなたの部屋に最も近い形状は？'},
+  mwS2Title:        {da:'Vægmål & paneler',           en:'Wall dimensions & panels',     no:'Veggmål & paneler',           sv:'Väggmått & paneler',          de:'Wandmaße & Paneele',           pl:'Wymiary ścian & panele',       fr:'Dimensions murs & panneaux',   it:'Dimensioni pareti & pannelli',    ja:'壁寸法とパネル'},
+  mwS2Sub:          {da:'Indtast mål i cm. Brug tegningen til at se hvilken væg er hvilken.', en:'Enter measurements in cm. Use the drawing to see which wall is which.', no:'Skriv inn mål i cm. Bruk tegningen for å se hvilken vegg er hvilken.', sv:'Ange mått i cm. Använd ritningen för att se vilken vägg som är vilken.', de:'Maße in cm eingeben. Zeichnung verwenden, um die Wände zu identifizieren.', pl:'Wprowadź wymiary w cm. Użyj rysunku, aby zobaczyć, która ściana jest która.', fr:'Entrez les mesures en cm. Utilisez le dessin pour identifier les murs.', it:'Inserisci le misure in cm. Usa il disegno per identificare le pareti.', ja:'cmで寸法を入力。図を使ってどの壁かを確認。'},
+  mwS3Title:        {da:'Døre & vinduer',             en:'Doors & windows',              no:'Dører & vinduer',             sv:'Dörrar & fönster',            de:'Türen & Fenster',              pl:'Drzwi & okna',                 fr:'Portes & fenêtres',            it:'Porte & finestre',                ja:'ドアと窓'},
+  mwS3Sub:          {da:'Tryk på en væg i tegningen, tilføj derefter hvad der er på væggen.', en:'Tap a wall in the drawing, then add what is on the wall.', no:'Trykk på en vegg i tegningen, legg deretter til hva som er på veggen.', sv:'Tryck på en vägg i ritningen, lägg sedan till vad som finns på väggen.', de:'Auf eine Wand in der Zeichnung tippen, dann hinzufügen, was an der Wand ist.', pl:'Dotknij ściany na rysunku, następnie dodaj co jest na ścianie.', fr:'Tapez sur un mur dans le dessin, puis ajoutez ce qui s\'y trouve.', it:'Tocca una parete nel disegno, poi aggiungi ciò che c\'è sulla parete.', ja:'図の壁をタップして、壁にあるものを追加。'},
+  mwS3bEyebrow:     {da:'Wanpan · Tilslutning',      en:'Wanpan · Connection',          no:'Wanpan · Tilkobling',         sv:'Wanpan · Anslutning',        de:'Wanpan · Anschluss',          pl:'Wanpan · Połączenie',          fr:'Wanpan · Connexion',           it:'Wanpan · Connessione',            ja:'Wanpan · 接続'},
+  mwS3bTitle:       {da:'KC/KT placering',           en:'KC/KT placement',               no:'KC/KT plassering',            sv:'KC/KT placering',             de:'KC/KT Positionierung',         pl:'Pozycjonowanie KC/KT',         fr:'Positionnement KC/KT',         it:'Posizionamento KC/KT',            ja:'KC/KT配置'},
+  mwS3bSub:         {da:'Vælg type og placer tilslutningspunktet præcist langs væggen.', en:'Select type and place the connection point precisely along the wall.', no:'Velg type og plasser tilkoblingspunktet nøyaktig langs veggen.', sv:'Välj typ och placera anslutningspunkten exakt längs väggen.', de:'Typ wählen und den Anschlusspunkt genau entlang der Wand positionieren.', pl:'Wybierz typ i umieść punkt połączenia dokładnie wzdłuż ściany.', fr:'Sélectionnez le type et placez le point de connexion précisément le long du mur.', it:'Seleziona il tipo e posiziona il punto di connessione con precisione lungo la parete.', ja:'タイプを選択し、接続点を壁に沿って正確に配置。'},
+  mwS4Sub:          {da:'Få svar om din bolig så beregningen bliver præcis.', en:'Tell us about your home so the calculation is accurate.', no:'Gi oss informasjon om boligen din så beregningen blir presis.', sv:'Berätta om ditt hem så att beräkningen blir exakt.', de:'Angaben zu Ihrem Heim für eine präzise Berechnung.', pl:'Podaj informacje o swoim domu, aby obliczenie było dokładne.', fr:'Renseignez votre logement pour que le calcul soit précis.', it:'Fornisci informazioni sulla tua casa per un calcolo preciso.', ja:'正確な計算のために住宅の情報を入力。'},
+  mwWpThermo:       {da:'Termostat / styring',       en:'Thermostat / control',          no:'Termostat / styring',         sv:'Termostat / styrning',        de:'Thermostat / Steuerung',       pl:'Termostat / sterowanie',       fr:'Thermostat / contrôle',        it:'Termostato / controllo',          ja:'サーモスタット/制御'},
+  mwNextBuildDetails:{da:'Næste: Bygningsdetaljer', en:'Next: Building details', no:'Neste: Bygningsdetaljer', sv:'Nästa: Byggnadsdetaljer', de:'Weiter: Gebäudedetails', pl:'Dalej: Szczegóły budynku', fr:'Suivant: Détails du bâtiment', it:'Avanti: Dettagli edificio', ja:'次へ: 建物の詳細'},
+  mwBack:           {da:'← Tilbage',                 en:'← Back',                       no:'← Tilbake',                   sv:'← Tillbaka',                  de:'← Zurück',                     pl:'← Wstecz',                     fr:'← Retour',                     it:'← Indietro',                      ja:'← 戻る'},
   year:             {da:'år',en:'year',no:'år',sv:'år',de:'Jahr',pl:'rok',fr:'an',it:'anno',ja:'年'},
   savings:          {da:'besparelse',en:'savings',no:'besparelse',sv:'besparing',de:'Einsparung',pl:'oszczędności',fr:'économies',it:'risparmio',ja:'節約'},
   doorsObstacles:   {da:'Døre & forhindringer',en:'Doors & obstacles',  no:'Dører & hindringer',  sv:'Dörrar & hinder',    de:'Türen & Hindernisse', pl:'Drzwi & przeszkody',   fr:'Portes & obstacles',   it:'Porte & ostacoli',     ja:'ドアと障害物'},
@@ -1739,7 +1743,7 @@ function applyLang(){
   // Update lang picker display in all headers
   const lang = LANGS.find(l=>l.code===curLang);
   if(lang){
-    for(let i=0;i<=4;i++){
+    for(let i=0;i<=6;i++){
       const lf=document.getElementById('lf'+i); if(lf) lf.textContent=lang.flag;
       const lc=document.getElementById('lc'+i); if(lc) lc.textContent=lang.code.toUpperCase();
     }
@@ -1764,7 +1768,7 @@ function applyLang(){
 }
 
 function buildLangMenus(){
-  for(let i=0;i<=4;i++){
+  for(let i=0;i<=6;i++){
     const el=document.getElementById('ld'+i);
     if(!el) continue;
     el.innerHTML = LANGS.map(l=>`
@@ -2317,6 +2321,7 @@ function go(n){
   if(n===3){buildResults();}
   if(n===4){buildGuide();}
   // n===5: buildOffer() handles its own screen activation
+  applyLang(); // ensure all data-i18n elements are up to date on screen change
   window.scrollTo(0,0);
 }
 
@@ -4431,24 +4436,7 @@ function buildResults(){
   const krUnit=document.getElementById('r-kr-unit');
   if(krUnit) krUnit.textContent=' '+currencyUnit();
 
-  // Besparelse: 25% af estimeret varmeudgift
-  const annKwh=Math.round(hl * 2400 * 24 / 20 / 1000);
-  const annCost=Math.round(annKwh*3.5);
-  const sav=Math.round(annCost*0.25);
-  const savEUR=isEUR();
-  const savVal   = savEUR ? Math.round(sav   *DKK_TO_EUR) : sav;
-  const savVal10 = savEUR ? Math.round(sav*10*DKK_TO_EUR) : sav*10;
-  const savVal25 = savEUR ? Math.round(sav*25*DKK_TO_EUR) : sav*25;
-  const savUnit  = savEUR ? '€' : 'kr.';
-  const savLoc   = savEUR ? 'de-DE' : 'da-DK';
-  const savPerTxt= savEUR
-    ? (savVal.toLocaleString(savLoc)+' '+savUnit+' / '+t('year')+' · 25% '+t('savings'))
-    : (savVal.toLocaleString(savLoc)+' kr. pr. år · 25% besparelse');
-  document.getElementById('sav-y').textContent=savVal.toLocaleString(savLoc)+' '+savUnit;
-  document.getElementById('sav-10').textContent=savVal10.toLocaleString(savLoc)+' '+savUnit;
-  document.getElementById('sav-25').textContent=savVal25.toLocaleString(savLoc)+' '+savUnit;
-  const savPerEl=document.querySelector('.sav-per');
-  if(savPerEl) savPerEl.textContent=savPerTxt;
+
 
   // Render installation overview
   const ov=document.getElementById('install-overview');
@@ -5603,7 +5591,11 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
   <!-- Top bar -->
   <div id="mw-topbar">
     <div id="mw-logo"><div id="mw-logo-dot"></div>Elpan &middot; Wanpan</div>
-    <button id="mw-back" onclick="mwBack()" style="display:none">&#8592; Tilbage</button>
+    <button id="mw-back" onclick="mwBack()" style="display:none" data-i18n="mwBack">&#8592; Tilbage</button>
+    <div class="lang-picker" id="lp6" style="margin-left:auto">
+      <button class="lang-btn" onclick="toggleLangMenu('lp6')"><span class="lang-flag" id="lf6">🇩🇰</span><span id="lc6">DA</span> ▾</button>
+      <div class="lang-dropdown" id="ld6"></div>
+    </div>
   </div>
 
   <!-- Progress -->
@@ -5620,9 +5612,9 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
 
     <!-- SLIDE 0: Produkt -->
     <div class="mw-slide active" id="mws-0">
-      <div class="mw-eyebrow">Trin 1 af 5</div>
-      <h2 class="mw-title">Hvilket varmesystem?</h2>
-      <p class="mw-sub">Vælg det system du ønsker beregnet</p>
+      <div class="mw-eyebrow" data-i18n="mwStep1of5">Trin 1 af 5</div>
+      <h2 class="mw-title" data-i18n="mwS0Title">Hvilket varmesystem?</h2>
+      <p class="mw-sub" data-i18n="mwS0Sub">Vælg det system du ønsker beregnet</p>
       <div class="mw-choices">
         <div class="mw-choice" id="mw-pick-elpan" onclick="mwPickProduct('elpan')">
           <div class="mw-c-badge mw-c-badge-el">EL</div>
@@ -5645,9 +5637,9 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
 
     <!-- SLIDE 1: Rumsform -->
     <div class="mw-slide" id="mws-1">
-      <div class="mw-eyebrow">Trin 2 af 5</div>
-      <h2 class="mw-title">Rummets form</h2>
-      <p class="mw-sub">Hvilken form ligner dit rum bedst?</p>
+      <div class="mw-eyebrow" data-i18n="mwStep2of5">Trin 2 af 5</div>
+      <h2 class="mw-title" data-i18n="mwS1Title">Rummets form</h2>
+      <p class="mw-sub" data-i18n="mwS1Sub">Hvilken form ligner dit rum bedst?</p>
       <div class="mw-shapes" id="mw-shapes">
         <div class="mw-shape sel" data-shape="rect" onclick="mwPickShape('rect',this)">
           <svg width="56" height="42" viewBox="0 0 56 42"><rect x="4" y="4" width="48" height="34" fill="none" stroke="currentColor" stroke-width="2.5" rx="1"/></svg>
@@ -5677,9 +5669,9 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
 
     <!-- SLIDE 2: Vægmål + panel toggle -->
     <div class="mw-slide" id="mws-2">
-      <div class="mw-eyebrow">Trin 3 af 5</div>
-      <h2 class="mw-title">Vægmål &amp; paneler</h2>
-      <p class="mw-sub">Indtast mål i cm. Brug tegningen til at se hvilken væg er hvilken.</p>
+      <div class="mw-eyebrow" data-i18n="mwStep3of5">Trin 3 af 5</div>
+      <h2 class="mw-title" data-i18n="mwS2Title">Vægmål &amp; paneler</h2>
+      <p class="mw-sub" data-i18n="mwS2Sub">Indtast mål i cm. Brug tegningen til at se hvilken væg er hvilken.</p>
 
       <!-- Mini rumoversigt -->
       <div id="mw-wall-canvas-wrap">
@@ -5694,9 +5686,9 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
 
     <!-- SLIDE 3: Forhindringer + canvas -->
     <div class="mw-slide" id="mws-3">
-      <div class="mw-eyebrow">Trin 4 af 5</div>
-      <h2 class="mw-title">Døre &amp; vinduer</h2>
-      <p class="mw-sub">Tryk på en væg i tegningen, tilføj derefter hvad der er på væggen.</p>
+      <div class="mw-eyebrow" data-i18n="mwStep4of5">Trin 4 af 5</div>
+      <h2 class="mw-title" data-i18n="mwS3Title">Døre &amp; vinduer</h2>
+      <p class="mw-sub" data-i18n="mwS3Sub">Tryk på en væg i tegningen, tilføj derefter hvad der er på væggen.</p>
 
       <div id="mw-canvas-wrap">
         <canvas id="mw-canvas" height="240"></canvas>
@@ -5733,12 +5725,12 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
 
     <!-- SLIDE 3b: KC/KT (kun Wanpan) -->
     <div class="mw-slide" id="mws-3b">
-      <div class="mw-eyebrow">Wanpan · Tilslutning</div>
-      <h2 class="mw-title">KC/KT placering</h2>
-      <p class="mw-sub">Vælg type og placer tilslutningspunktet præcist langs væggen.</p>
+      <div class="mw-eyebrow" data-i18n="mwS3bEyebrow">Wanpan · Tilslutning</div>
+      <h2 class="mw-title" data-i18n="mwS3bTitle">KC/KT placering</h2>
+      <p class="mw-sub" data-i18n="mwS3bSub">Vælg type og placer tilslutningspunktet præcist langs væggen.</p>
 
       <!-- Type valg -->
-      <div class="mw-section-lbl">Tilslutningstype</div>
+      <div class="mw-section-lbl" data-i18n="connType">Tilslutningstype</div>
       <div class="mw-choices" style="margin-bottom:24px">
         <div class="mw-choice sel" id="mw-kc-btn" onclick="mwPickKCType('gulv',this)">
           <div class="mw-c-badge" style="background:#C4956A22;color:#9B6840">KC</div>
@@ -5759,11 +5751,11 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
       </div>
 
       <!-- Vælg væg -->
-      <div class="mw-section-lbl">Hvilken væg?</div>
+      <div class="mw-section-lbl" data-i18n="whichWall">Hvilken væg?</div>
       <div id="mw-kc-wall-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px"></div>
 
       <!-- Position langs væggen -->
-      <div class="mw-section-lbl">Position langs væggen</div>
+      <div class="mw-section-lbl" data-i18n="posAlongWall">Position langs væggen</div>
       <div class="mw-kc-pos-hint">
         <span style="color:#B85450;font-weight:500">Min. 12 cm fra hjørne</span> — iht. montagevejledning
       </div>
@@ -5798,13 +5790,13 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
 
     <!-- SLIDE 4: Bygningsdetaljer -->
     <div class="mw-slide" id="mws-4">
-      <div class="mw-eyebrow">Trin 5 af 5</div>
-      <h2 class="mw-title">Bygningsdetaljer</h2>
-      <p class="mw-sub">Få svar om din bolig så beregningen bliver præcis.</p>
+      <div class="mw-eyebrow" data-i18n="mwStep5of5">Trin 5 af 5</div>
+      <h2 class="mw-title" data-i18n="buildingDetails">Bygningsdetaljer</h2>
+      <p class="mw-sub" data-i18n="mwS4Sub">Få svar om din bolig så beregningen bliver præcis.</p>
 
       <!-- Elpan: termostat -->
       <div id="mw-d-elpan">
-        <div class="mw-section-lbl">Termostat</div>
+        <div class="mw-section-lbl" data-i18n="thermostat">Termostat</div>
         <div class="mw-choices" style="margin-bottom:24px">
           <div class="mw-choice sel" onclick="mwPickThermo('G',this)" id="mwt-G">
             <div class="mw-c-badge">G</div>
@@ -5835,7 +5827,7 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
 
       <!-- Wanpan: varmekilde -->
       <div id="mw-d-wanpan" style="display:none">
-        <div class="mw-section-lbl">Varmekilde</div>
+        <div class="mw-section-lbl" data-i18n="heatSource">Varmekilde</div>
         <div class="mw-choices" style="margin-bottom:24px">
           <div class="mw-choice sel" onclick="mwPickSource('gasfyr',this)">
             <div class="mw-c-badge">GF</div>
@@ -5866,7 +5858,7 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
 
       <!-- Wanpan: termostat -->
       <div id="mw-d-wpthermo" style="display:none">
-        <div class="mw-section-lbl">Termostat / styring</div>
+        <div class="mw-section-lbl" data-i18n="mwWpThermo">Termostat / styring</div>
         <div class="mw-choices" style="margin-bottom:24px">
           <div class="mw-choice sel" onclick="mwPickWpThermo('CRA',this)" id="mwwt-CRA">
             <div class="mw-c-badge" style="font-size:10px;padding:2px 5px">CRA</div>
@@ -5963,10 +5955,7 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
           <div class="mw-stat-lbl">Kredsløb</div>
           <div class="mw-stat-val"><span id="mw-r-circ">—</span></div>
         </div>
-        <div class="mw-stat">
-          <div class="mw-stat-lbl">Besparelse</div>
-          <div class="mw-stat-val"><span id="mw-r-sav">—</span><span class="mw-stat-unit"> kr/år</span></div>
-        </div>
+
       </div>
 
       <h3 class="mw-bom-heading">Produktliste</h3>
@@ -5988,7 +5977,7 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
   <!-- Bottom CTA -->
   <div id="mw-cta">
     <button id="mw-next-btn" onclick="mwNext()">
-      <span id="mw-next-txt">Næste</span>
+      <span id="mw-next-txt" data-i18n="next">Næste</span>
       <span id="mw-next-arrow">&#8594;</span>
     </button>
     <button id="mw-skip-btn" onclick="mwSkip()">Spring forhindringer over</button>
@@ -6006,6 +5995,10 @@ function prevStep(){if(S.guideStep>0){S.guideStep--;renderStep();}}
       <button class="btn btn-out btn-sm" onclick="go(3)">← Tilbage til beregning</button>
       <button class="btn btn-out btn-sm" onclick="startNewRoom()">+ Tilføj rum</button>
       <button class="btn btn-dark btn-sm" onclick="window.print()">Udskriv tilbud ↓</button>
+      <div class="lang-picker" id="lp5">
+        <button class="lang-btn" onclick="toggleLangMenu('lp5')"><span class="lang-flag" id="lf5">🇩🇰</span><span id="lc5">DA</span> ▾</button>
+        <div class="lang-dropdown" id="ld5"></div>
+      </div>
     </div>
   </header>
 
@@ -6149,6 +6142,7 @@ function mwInit(){
   if(window.innerWidth > 700) return;
   document.getElementById('mw-shell').style.display = 'flex';
   mwRenderStep('0', null);
+  applyLang(); // sync all data-i18n elements including mobile wizard
 }
 
 // ── Navigation ────────────────────────────────────────────────────────────
@@ -6649,7 +6643,7 @@ function mwRenderKCSlide(){
   
   // Opdater CTA — den er nu altid "Næste"
   const nextTxt = document.getElementById('mw-next-txt');
-  if(nextTxt) nextTxt.textContent = 'Næste: Bygningsdetaljer';
+  if(nextTxt) nextTxt.textContent = t('mwNextBuildDetails');
 }
 
 function mwRenderKCWallList(){
@@ -6704,7 +6698,7 @@ function mwSyncKCSlider(val){
   drawRoom();
   // Opdater CTA-tekst
   const nextTxt = document.getElementById('mw-next-txt');
-  if(nextTxt) nextTxt.textContent = 'Næste: Bygningsdetaljer';
+  if(nextTxt) nextTxt.textContent = t('mwNextBuildDetails');
 }
 
 function mwSyncKCCm(val){
@@ -6824,8 +6818,7 @@ function mwPopulateResult(){
   document.getElementById('mw-res-room').textContent = document.getElementById('rname')?.value||'Din løsning';
 
   // Besparelse
-  const savY = document.getElementById('sav-y')?.textContent||'—';
-  document.getElementById('mw-r-sav').textContent = savY;
+
 
   // Total pris fra desktop tabel (nu sikret udfyldt af buildResults())
   const totalRow = document.querySelector('.total-row td:last-child');
