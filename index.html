@@ -4142,7 +4142,7 @@ function buildResults(){
     ].filter(r=>r.q>0);
 
     document.getElementById('tech-specs').innerHTML=
-      `Spænding: 230V / 50Hz<br>Strålevarme: 70% ind i rum · Konvektion: 30%<br>Farve: Hvid RAL 9010 / Grå RAL 7035<br>Højde: 124mm · Dybde: 18mm<br>Godkendelse: S-mærket / CE<br>Kredsløb: ${circ} stk.<br>Total panellængde: ${Math.round(totalPanelMm/10)} cm`;
+      `Spænding: 230V / 50Hz<br>Strålevarme: 70% ind i rum · Konvektion: 30%<br>Farve: Hvid RAL 9010<br>Højde: 124mm · Dybde: 18mm<br>Godkendelse: S-mærket / CE<br>Kredsløb: ${circ} stk.<br>Total panellængde: ${Math.round(totalPanelMm/10)} cm`;
 
     document.getElementById('circuit-info').innerHTML=
       `Systemet har <strong>${circ} kredsløb</strong>${S.wpStrands===2?' fordelt på <strong>2 strenge</strong>':''}. ${doorObs.length>0?`<br>${doorObs.length} forhindring(er) — kabel trækkes via K-hanboks og stærkstrømskabel under/over forhindringen, genoptages med L-hunboks på den anden side.`:'Alle panelvægge er forbundet i ét samlet kredsløb.'}
